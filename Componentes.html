@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tienda de Componentes de Computadora</title>
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+      text-align: center;
+    }
+    
+    li {
+      display: inline-block; 
+    }
+    
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    
+    li a:hover {
+      background-color: #111;
+    }
+ 
+    
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .product {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+      width: calc(18% - 20px); 
+    }
+    
+    .product img {
+      max-width: 100%;
+      height: auto;
+      max-height: 200px;
+    }
+    
+    .product-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .product-price {
+      color: #888;
+    }
+    
+    .selected {
+      background-color: #f0f0f0;
+    }
+
+    .add-to-cart {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .remove-from-cart {
+      background-color: #FF0000;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    #cart-toggle {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    #cart-items {
+      margin-top: 20px;
+      display: none;
+    }
+
+    #cart-items.show {
+      display: block;
+    }
+
+    #cart-items .cart-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    #cart-items .cart-item img {
+      max-width: 100%;
+      height: auto;
+      max-height: 100px;
+      margin-right: 10px;
+    }
+
+    #search-bar {
+      margin-bottom: 10px;
+    }
+
+    #content-wrapper {
+      margin-top: 70px;
+    }
+  </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+       .banner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      height: 250px;
+    }
+
+    .banner img {
+      max-width: 100%;
+      height: auto;
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .banner.active img {
+      opacity: 1;
+    }
+
+    .banner-buttons {
+      position: absolute;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1;
+      width: 100%;
+      padding: 0 300px;
+    }
+
+    .banner-button-container {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .banner-button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      padding: 5px;
+      outline: none;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .banner-button:hover {
+      transform: scale(1.1);
+    }
+
+    .banner-button.left {
+      margin-right: 10px;
+    }
+
+    .banner-button.right {
+      margin-left: 10px;
+    }
+
+    .banner-indicators {
+      position: absolute;
+      bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .banner-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: white;
+      opacity: 0.5;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    .banner-indicator.active {
+      opacity: 1;
+    }
+    </style>
+</head>
+<body>
+  <ul>
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="Componentes.html">Componentes</a></li>
+    <li><a href="Computadoras.html">Computadoras</a></li>
+    <li><a href="Accesorios.html">Accesorios</a></li>
+  </ul>
+
+  <div class="banner">
+    <img src="https://raw.githubusercontent.com/RicardoArjona01/PC-TECHSTORE/main/GitHub/wide-banner-parts-components-modern-260nw-20157178101%20.jpg" alt="Banner">
+    <img src="c:\Users\Arjona\Documents\Proyecto ITI\banner-partes-pc.jpg" alt="Banner">
+    <img src="c:\Users\Arjona\Documents\Proyecto ITI\banner-aorus-gigabyte.jpg" alt="Banner">
+    <div class="banner-buttons">
+      <div class="banner-button-container">
+        <button class="banner-button left" id="prev-button">&#10096;</button>
+      </div>
+      <div class="banner-button-container">
+        <button class="banner-button right" id="next-button">&#10097;</button>
+      </div>
+    </div>
+    <div class="banner-indicators"></div>
+  </div>
+  <div id="content-wrapper">
+    <input type="text" id="search-bar" placeholder="Buscar productos">
+
+    <div class="products">
+      <div class="product">
+        <img src="C:\Users\Arjona\Documents\Proyecto ITI\motherboard.png" alt="PC AMD Ryzen">
+        <div class="product-name">Tarjeta Madre Gigabyte ATX B760 Gaming X AX DDR4</div>
+        <div class="product-price">$4,300</div>
+        <button class="add-to-cart" data-product-id="1">Agregar al carrito</button>
+      </div>
+      <div class="product">
+        <img src="C:\Users\Arjona\Documents\Proyecto ITI\procesador.png" alt="PC AMD Ryzen">
+        <div class="product-name">Procesador Intel Core i9-13900KS / 24 núcleos / 32 Threads</div>
+        <div class="product-price">$4,300</div>
+        <button class="add-to-cart" data-product-id="2">Agregar al carrito</button>
+      </div>
+      <div class="product">
+        <img src="C:\Users\Arjona\Documents\Proyecto ITI\fuente.png" alt="PC AMD Ryzen">
+        <div class="product-name">Fuente de Poder EVGA 500W 500 Bv 80 Plus Bronze</div>
+        <div class="product-price">$969</div>
+        <button class="add-to-cart" data-product-id="3">Agregar al carrito</button>
+      </div>
+      <div class="product">
+        <img src="C:\Users\Arjona\Documents\Proyecto ITI\gabinete.png" alt="PC AMD Ryzen">
+        <div class="product-name">Gabinete Lian Li Lancool ATX RGB Cristal Templado</div>
+        <div class="product-price">$3,599</div>
+        <button class="add-to-cart" data-product-id="4">Agregar al carrito</button>
+      </div>
+      <div class="product">
+        <img src="C:\Users\Arjona\Documents\Proyecto ITI\ssd.jpg" alt="PC AMD Ryzen">
+        <div class="product-name">Unidad de Estado Sólido Western Digital Black SN770</div>
+        <div class="product-price">$1,299</div>
+        <button class="add-to-cart" data-product-id="5">Agregar al carrito</button>
+      </div>
+    </div>
+
+    <div id="cart-toggle">Mostrar/ocultar carrito</div>
+    <div id="cart-items">
+      <h2>Carrito de Compra</h2>
+    </div>
+  </div>
+
+  <script>
+    var products = document.querySelectorAll('.product');
+    var cartItemsContainer = document.getElementById('cart-items');
+    var searchBar = document.getElementById('search-bar');
+    var cartToggle = document.getElementById('cart-toggle');
+    
+    products.forEach(function(product) {
+      var addToCartButton = product.querySelector('.add-to-cart');
+
+      addToCartButton.addEventListener('click', function(event) {
+        var clickedButton = event.target;
+        var productContainer = clickedButton.parentNode;
+        var productImage = productContainer.querySelector('img');
+        var productName = productContainer.querySelector('.product-name').textContent;
+        var productPrice = productContainer.querySelector('.product-price').textContent;
+        var productId = clickedButton.dataset.productId;
+
+        var cartItems = sessionStorage.getItem('cartItems') || '[]';
+        cartItems = JSON.parse(cartItems);
+        cartItems.push({
+          id: productId,
+          name: productName,
+          price: productPrice,
+          image: productImage.src
+        });
+        sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+        renderCartItems();
+      });
+    });
+
+    searchBar.addEventListener('input', function(event) {
+      var searchTerm = event.target.value.toLowerCase();
+      var filteredProducts = Array.from(products).filter(function(product) {
+        var productName = product.querySelector('.product-name').textContent.toLowerCase();
+        return productName.includes(searchTerm);
+      });
+      products.forEach(function(product) {
+        if (filteredProducts.includes(product)) {
+          product.style.display = 'block';
+        } else {
+          product.style.display = 'none';
+        }
+      });
+    });
+
+    function renderCartItems() {
+      var cartItems = sessionStorage.getItem('cartItems') || '[]';
+      cartItems = JSON.parse(cartItems);
+
+      cartItemsContainer.innerHTML = '';
+
+      if (cartItems.length === 0) {
+        cartItemsContainer.innerHTML = '<p>No hay productos en el carrito.</p>';
+        return;
+      }
+
+      for (var i = 0; i < cartItems.length; i++) {
+        var cartItemContainer = document.createElement('div');
+        cartItemContainer.classList.add('cart-item');
+        cartItemContainer.innerHTML = '<img src="' + cartItems[i].image + '" alt="' + cartItems[i].name + '">' +
+          '<div class="product-name">' + cartItems[i].name + '</div>' +
+          '<div class="product-price">' + cartItems[i].price + '</div>' +
+          '<button class="remove-from-cart" data-product-id="' + cartItems[i].id + '">Eliminar</button>';
+
+        cartItemsContainer.appendChild(cartItemContainer);
+      }
+
+      var removeButtons = document.querySelectorAll('.remove-from-cart');
+      removeButtons.forEach(function(button) {
+        var productId = button.dataset.productId;
+        button.addEventListener('click', function() {
+          var cartItems = sessionStorage.getItem('cartItems') || '[]';
+          cartItems = JSON.parse(cartItems);
+          var index = cartItems.findIndex(function(item) {
+            return item.id === productId;
+          });
+          if (index !== -1) {
+            cartItems.splice(index, 1);
+          }
+          sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+          renderCartItems();
+        });
+      });
+    }
+
+    cartToggle.addEventListener('click', function() {
+      cartItemsContainer.classList.toggle('show');
+    });
+
+    renderCartItems();
+
+    var images = document.querySelectorAll('.banner img');
+    var prevButton = document.getElementById('prev-button');
+    var nextButton = document.getElementById('next-button');
+    var indicatorsContainer = document.querySelector('.banner-indicators');
+    var indicators = [];
+    var currentImageIndex = 0;
+
+    function showImage(index) {
+      images.forEach(function(image) {
+        image.style.opacity = 0;
+      });
+      images[index].style.opacity = 1;
+      images[index].classList.add('active');
+
+      indicators.forEach(function(indicator) {
+        indicator.classList.remove('active');
+      });
+      indicators[index].classList.add('active');
+    }
+
+    function changeImage(direction) {
+      images[currentImageIndex].classList.remove('active');
+      currentImageIndex += direction;
+      if (currentImageIndex < 0) {
+        currentImageIndex = images.length - 1;
+      } else if (currentImageIndex >= images.length) {
+        currentImageIndex = 0;
+      }
+      showImage(currentImageIndex);
+    }
+
+    prevButton.addEventListener('click', function() {
+      changeImage(-1);
+    });
+
+    nextButton.addEventListener('click', function() {
+      changeImage(1);
+    });
+
+    images.forEach(function(image, index) {
+      var indicator = document.createElement('div');
+      indicator.classList.add('banner-indicator');
+      if (index === 0) {
+        indicator.classList.add('active');
+      }
+      indicator.addEventListener('click', function() {
+        showImage(index);
+        currentImageIndex = index;
+      });
+      indicatorsContainer.appendChild(indicator);
+      indicators.push(indicator);
+    });
+
+    showImage(currentImageIndex);
+  </script>
+</body>
+</html>
